@@ -1,0 +1,1 @@
+appservice_artifacts.zip filter=lfs diff=lfs merge=lfs -text
