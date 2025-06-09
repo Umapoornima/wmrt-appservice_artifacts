@@ -31,12 +31,16 @@ jobs:
 
       - name: Push artifact to Personal repo with workflow file preserved
         run: |
-
           git lfs track "${{ env.FILE_NAME }}"
-          echo ".gitattributes" >> .gitignore
-
+          git add -f .gitattributes
           git add "${{ env.FILE_NAME }}"
-          git add .gitattributes
+          
+          export DATE=$(date '+%Y-%m-%d %H:%M:%S')
+      
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m "Imported ZIP from ViziApps using Git LFS on $DATE"
+            git push origin main
+          fi
 
-          git commit -m "Imported ZIP from ViziApps using Git LFS" || echo "Nothing to commit"
-          git push origin main
