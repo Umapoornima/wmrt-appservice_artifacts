@@ -37,9 +37,6 @@ jobs:
       
           export DATE=$(date '+%Y-%m-%d %H:%M:%S')
       
-          git config user.email "action@github.com"
-          git config user.name "GitHub Action Bot"
-      
           git commit -m "Imported ZIP from ViziApps using Git LFS on $DATE" --allow-empty
           git push origin main
 
