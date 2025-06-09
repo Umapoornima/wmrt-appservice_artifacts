@@ -31,8 +31,6 @@ jobs:
 
       - name: Push artifact to Personal repo with workflow file preserved
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
 
           git lfs track "${{ env.FILE_NAME }}"
           echo ".gitattributes" >> .gitignore
