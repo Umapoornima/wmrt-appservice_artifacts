@@ -34,13 +34,12 @@ jobs:
           git lfs track "${{ env.FILE_NAME }}"
           git add -f .gitattributes
           git add "${{ env.FILE_NAME }}"
-          
+      
           export DATE=$(date '+%Y-%m-%d %H:%M:%S')
       
-          if git diff --cached --quiet; then
-            echo "Nothing to commit"
-          else
-            git commit -m "Imported ZIP from ViziApps using Git LFS on $DATE"
-            git push origin main
-          fi
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action Bot"
+      
+          git commit -m "Imported ZIP from ViziApps using Git LFS on $DATE" --allow-empty
+          git push origin main
 
