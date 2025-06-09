@@ -1,0 +1,32 @@
+name: Import Artifact from ViziApps
+
+on:
+  workflow_dispatch:
+
+env:
+  VIZIAPPS_REPO: ViziApps/wmrt-appservice_artifacts
+  PERSONAL_REPO: Umapoornima/wmrt-appservice_artifacts
+  FILE_NAME: appservice_artifacts.zip
+
+jobs:
+  copy-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout personal repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone ViziApps repo and copy ZIP
+        run: |
+          git clone https://github.com/${VIZIAPPS_REPO} viziapps
+          cp viziapps/${FILE_NAME} .
+
+      - name: Commit and push artifact
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add ${FILE_NAME}
+          git commit -m "Imported ZIP from ViziApps"
+          git push origin main
